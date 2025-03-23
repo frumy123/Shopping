@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>הוסף קניה</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/add_purchase.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">הוסף קניה</h1>
+        <form method="post">
+            <div class="form-group">
+                <label for="product_name">שם המוצר:</label>
+                <input type="text" name="product_name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="category">קטגוריה:</label>
+                <input type="text" name="category" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="quantity">כמות:</label>
+                <input type="number" name="quantity" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="price">מחיר:</label>
+                <input type="number" step="0.01" name="price" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="date">תאריך:</label>
+                <input type="date" name="date" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">הוסף קניה</button>
+        </form>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-link mt-3">חזרה ללוח הבקרה</a>
+    </div>
+</body>
+</html>

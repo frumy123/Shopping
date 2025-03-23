@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>לוח בקרה</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">לוח בקרה</h1>
+        <a href="{{ url_for('add_purchase') }}" class="btn btn-primary">הוסף קניה</a>
+        <a href="{{ url_for('purchases_last_week') }}" class="btn btn-info">צפייה בקניות של השבוע האחרון</a>
+        <a href="{{ url_for('purchases_by_date') }}" class="btn btn-warning">צפייה בקניות לפי תאריכים</a>
+        <a href="{{ url_for('logout') }}" class="btn btn-secondary">התנתקות</a>
+        <h2 class="mt-5">רשימת קניות</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>שם המוצר</th>
+                    <th>קטגוריה</th>
+                    <th>כמות</th>
+                    <th>מחיר</th>
+                    <th>תאריך</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for purchase in purchases %}
+                <tr>
+                    <td>{{ purchase[0] }}</td>
+                    <td>{{ purchase[1] }}</td>
+                    <td>{{ purchase[2] }}</td>
+                    <td>{{ purchase[3] }}</td>
+                    <td>{{ purchase[4] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.btn {
+    margin: 10px;
+}

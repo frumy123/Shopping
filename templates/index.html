@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ברוכים הבאים</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">ברוכים הבאים לאפליקציית ניהול הקניות</h1>
+        <a href="{{ url_for('register') }}" class="btn btn-primary mt-3">הרשמה</a>
+        <a href="{{ url_for('login') }}" class="btn btn-secondary mt-3">התחברות</a>
+    </div>
+</body>
+</html>
