@@ -1,23 +1,28 @@
 body {
-    font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
-}
-
-h1 {
-    text-align: center;
-    margin-top: 50px;
+    font-family: 'Arial', sans-serif;
 }
 
 .container {
+    text-align: center;
     margin-top: 50px;
 }
 
-.form-group {
-    margin-bottom: 15px;
+.card {
+    border: 1px solid #b8860b;
 }
 
-.btn-link {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
+.card-header.bg-gold {
+    background-color: #b8860b !important;
+    color: white;
+}
+
+.btn-gold {
+    background-color: #b8860b !important;
+    border: none;
+    color: white;
+}
+
+.btn-gold:hover {
+    background-color: #daa520 !important;
 }

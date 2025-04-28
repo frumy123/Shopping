@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>לוח בקרה - דמו</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 text-gold">לוח בקרה - דמו</h1>
+
+        <!-- 🔹 כפתורים עם קישורים לרישום -->
+        <div class="mb-4">
+            <a href="{{ url_for('register') }}" class="btn btn-gold">הוסף קניה</a>
+            <a href="{{ url_for('register') }}" class="btn btn-warning">צפייה בקניות לפי תאריכים</a>
+            <a href="{{ url_for('register') }}" class="btn btn-secondary">התנתקות</a>
+        </div>
+
+        <div class="mt-4">
+            <h4 class="text-gold">ניתוח גרפי</h4>
+            <a href="{{ url_for('register') }}" class="btn btn-info">גרף הוצאות שבועיות</a>
+            <a href="{{ url_for('register') }}" class="btn btn-success">גרף הוצאות לפי קטגוריות</a>
+        </div>
+
+        <h2 class="mt-5 text-gold">קניות השבוע האחרון (דמו)</h2>
+
+        {% if purchases %}
+        <table class="table table-striped mt-3">
+            <thead class="bg-gold text-white">
+                <tr>
+                    <th>שם המוצר</th>
+                    <th>קטגוריה</th>
+                    <th>כמות</th>
+                    <th>מחיר</th>
+                    <th>תאריך</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for purchase in purchases %}
+                <tr>
+                    <td>{{ purchase[0] }}</td>
+                    <td>{{ purchase[1] }}</td>
+                    <td>{{ purchase[2] }}</td>
+                    <td>{{ purchase[3] }}</td>
+                    <td>{{ purchase[4] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-center mt-3">אין קניות להצגה</p>
+        {% endif %}
+
+        <form action="{{ url_for('register') }}" method="get" class="mt-4">
+            <button type="submit" class="btn btn-black">גיבוי נתונים</button>
+        </form>
+    </div>
+</body>
+</html>

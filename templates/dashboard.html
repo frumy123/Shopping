@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <title>לוח בקרה</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-5">לוח בקרה</h1>
-        <a href="{{ url_for('add_purchase') }}" class="btn btn-primary">הוסף קניה</a>
-        <a href="{{ url_for('purchases_last_week') }}" class="btn btn-info">צפייה בקניות של השבוע האחרון</a>
+        <h1 class="mt-5 text-gold">לוח בקרה</h1>
+        <a href="{{ url_for('add_purchase') }}" class="btn btn-gold">הוסף קניה</a>
         <a href="{{ url_for('purchases_by_date') }}" class="btn btn-warning">צפייה בקניות לפי תאריכים</a>
+        <a href="{{ url_for('store') }}" class="btn btn-primary mt-3">ייעול קניות בחנות</a>
         <a href="{{ url_for('logout') }}" class="btn btn-secondary">התנתקות</a>
-        <h2 class="mt-5">רשימת קניות</h2>
+
+        <!-- 🔹 כפתורים לגרפים -->
+        <div class="mt-4">
+            <h4 class="text-gold">ניתוח גרפי</h4>
+            <a href="{{ url_for('graph1') }}" class="btn btn-info" target="_blank">גרף הוצאות שבועיות</a>
+            <a href="{{ url_for('graph2') }}" class="btn btn-success" target="_blank">גרף הוצאות לפי קטגוריות</a>
+        </div>
+
+        <h2 class="mt-5 text-gold">קניות השבוע האחרון</h2>
+        {% set data = purchases if purchases is defined else purchases_last_week %}
+        {% if data %}
         <table class="table table-striped">
-            <thead>
+            <thead class="bg-gold text-white">
                 <tr>
                     <th>שם המוצר</th>
                     <th>קטגוריה</th>
@@ -24,18 +34,26 @@
                     <th>תאריך</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for purchase in purchases %}
-                <tr>
-                    <td>{{ purchase[0] }}</td>
-                    <td>{{ purchase[1] }}</td>
-                    <td>{{ purchase[2] }}</td>
-                    <td>{{ purchase[3] }}</td>
-                    <td>{{ purchase[4] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <tbody>
+            {% for purchase in data %}
+            <tr>
+                <td>{{ purchase[0] }}</td>
+                <td>{{ purchase[1] }}</td>
+                <td>{{ purchase[2] }}</td>
+                <td>{{ purchase[3] }}</td>
+                <td>{{ purchase[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="text-center mt-3">לא נמצאו קניות להצגה</p>
+{% endif %}
+
+
+        <form action="{{ url_for('save_data') }}" method="get">
+            <button type="submit" class="btn btn-black">גיבוי נתונים</button>
+        </form>
     </div>
 </body>
 </html>

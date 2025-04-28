@@ -1,0 +1,186 @@
+body {
+    background-color: #fdfdfd;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    direction: rtl;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+h1, h2, h4 {
+    color: #bfa14f;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.card-header {
+    background: #fff;
+    color: #000;
+    font-size: 1.8rem;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #bfa14f;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+    background: #bfa14f;
+    color: white;
+    text-align: center;
+    padding: 12px;
+}
+
+.table td {
+    background: #fff;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.table tr:nth-child(even) td {
+    background: #f9f9f9;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #555;
+    text-align: center;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-gold {
+    background-color: #bfa14f;
+    color: white;
+    border: none;
+}
+
+.btn-gold:hover {
+    background-color: #a68c3d;
+}
+
+.btn-black {
+    background-color: #333;
+    color: white;
+    border: none;
+}
+
+.btn-black:hover {
+    background-color: #000;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: black;
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.link-to-login, .link-to-register {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: black;
+}
+
+.store-title {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.comparison-table thead {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.better-price {
+    background-color: #d4edda; /* ירוק */
+}
+
+.worse-price {
+    background-color: #f8d7da; /* אדום */
+}
+
+.btn-back {
+    margin-bottom: 20px;
+}
+
+.card {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}

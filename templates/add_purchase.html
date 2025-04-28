@@ -2,37 +2,56 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>הוסף קניה</title>
+    <title>הוספת קניה</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/add_purchase.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1 class="mt-5">הוסף קניה</h1>
-        <form method="post">
-            <div class="form-group">
-                <label for="product_name">שם המוצר:</label>
-                <input type="text" name="product_name" class="form-control" required>
+    <div class="container mt-5">
+        <div class="card mx-auto" style="max-width: 400px;">
+            <div class="card-header bg-gold text-white text-center">
+                <h3>הוספת קניה</h3>
             </div>
-            <div class="form-group">
-                <label for="category">קטגוריה:</label>
-                <input type="text" name="category" class="form-control" required>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="product_name">שם המוצר</label>
+                        <input type="text" name="product_name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">קטגוריה</label>
+                        <input type="text" name="category" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">כמות</label>
+                        <input type="number" name="quantity" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">מחיר</label>
+                        <input type="number" step="0.01" name="price" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">תאריך</label>
+                        <div class="input-group">
+                            <input type="date" id="date" name="date" class="form-control" required>
+                            <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" onclick="setToday()">היום</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-gold btn-block">הוסף קניה</button>
+                </form>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-link mt-3">חזרה ללוח הבקרה</a>
             </div>
-            <div class="form-group">
-                <label for="quantity">כמות:</label>
-                <input type="number" name="quantity" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="price">מחיר:</label>
-                <input type="number" step="0.01" name="price" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="date">תאריך:</label>
-                <input type="date" name="date" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary">הוסף קניה</button>
-        </form>
-        <a href="{{ url_for('dashboard') }}" class="btn btn-link mt-3">חזרה ללוח הבקרה</a>
+        </div>
     </div>
+<script>
+function setToday() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('date').value = today;
+}
+</script>
 </body>
 </html>
+

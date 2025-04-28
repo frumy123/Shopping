@@ -4,23 +4,34 @@
     <meta charset="UTF-8">
     <title>הרשמה</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/register.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-5">הרשמה</h1>
-        <form method="post">
-            <div class="form-group">
-                <label for="email">אימייל:</label>
-                <input type="email" name="email" class="form-control" required>
+        <div class="card">
+            <div class="card-header bg-gold">
+                <h2>הרשמה</h2>
             </div>
-            <div class="form-group">
-                <label for="password">סיסמא:</label>
-                <input type="password" name="password" class="form-control" required>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="email">אימייל:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">סיסמא:</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    {% if error_message %}
+                    <div class="alert alert-danger mt-3" role="alert">
+                        {{ error_message }}
+                    </div>
+                    {% endif %}
+                    <button type="submit" class="btn btn-gold">הרשם</button>
+                    <p class="mt-3">כבר יש לך חשבון? <a href="{{ url_for('login') }}" class="link-to-login">להתחברות</a></p>
+                </form>
             </div>
-            <button type="submit" class="btn btn-primary">הרשמה</button>
-        </form>
-        <a href="{{ url_for('login') }}" class="btn btn-link mt-3">כבר יש לך חשבון? התחברות</a>
+        </div>
     </div>
 </body>
 </html>
