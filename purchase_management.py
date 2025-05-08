@@ -2,11 +2,11 @@ import csv
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import io
-import base64
 from matplotlib import rcParams
 import pandas as pd
 import os
-
+import arabic_reshaper
+from bidi.algorithm import get_display
 
 # הגדרת פונט עברי
 rcParams['font.family'] = 'David'
@@ -95,8 +95,7 @@ def get_current_vs_average_expenses(email):
     average_expenses = sum(previous_months_expenses) / len(previous_months_expenses) if previous_months_expenses else 0
     return current_expenses, average_expenses
 
-
-#גרפים  ההוצאות כל שבוע בשנה האחרונה
+# גרפים  ההוצאות כל שבוע בשנה האחרונה
 def plot_weekly_expenses(email):
     end_date = datetime.today()
     start_date = end_date - timedelta(days=365)
@@ -110,9 +109,9 @@ def plot_weekly_expenses(email):
 
     plt.figure(figsize=(10, 6))
     weekly_expenses.plot(kind='bar', color='blue')
-    plt.title('סך ההוצאות בכל שבוע בשנה האחרונה')
-    plt.xlabel('שבוע')
-    plt.ylabel('סך ההוצאות')
+    plt.title(reshape('סך ההוצאות בכל שבוע בשנה האחרונה'))
+    plt.xlabel(reshape('שבוע'))
+    plt.ylabel(reshape('סך ההוצאות'))
 
     img = io.BytesIO()
     plt.savefig(img, format='png')
@@ -132,11 +131,12 @@ def plot_category_expenses(email):
     df['price'] = pd.to_numeric(df['price'], errors='coerce') * pd.to_numeric(df['quantity'], errors='coerce')
 
     category_expenses = df.groupby('category')['price'].sum()
+    labels = [reshape(str(cat)) for cat in category_expenses.index]
 
     plt.figure(figsize=(8, 8))
-    category_expenses.plot(kind='pie', autopct='%1.1f%%',
+    plt.pie(category_expenses, labels=labels, autopct='%1.1f%%',
         colors=['#ff9999', '#66b3ff', '#99ff99', '#ffcc99'])
-    plt.title('הוצאות לפי קטגוריות')
+    plt.title(reshape('הוצאות לפי קטגוריות'))
 
     img = io.BytesIO()
     plt.savefig(img, format='png')
@@ -144,3 +144,8 @@ def plot_category_expenses(email):
     plt.close()
     return img
 
+
+def reshape(text):
+    reshaped_text = arabic_reshaper.reshape(text)
+    bidi_text = get_display(reshaped_text)
+    return bidi_text

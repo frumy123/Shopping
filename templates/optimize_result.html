@@ -3,32 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>תוצאות ייעול קניות</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <h1>תוצאות ייעול קניות</h1>
 
     {% if cheaper_items %}
-    <table border="1">
-        <thead>
-            <tr>
-                <th>שם המוצר</th>
-                <th>המחיר הקודם</th>
-                <th>המחיר הנוכחי</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in cheaper_items %}
-            <tr>
-                <td>{{ item.name }}</td>
-                <td>{{ item.old_price }} ₪</td>
-                <td>{{ item.new_price }} ₪</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-        <p>לא נמצאו מוצרים זולים יותר.</p>
-    {% endif %}
+<table class="product-table">
+    <thead>
+        <tr>
+            <th>שם המוצר</th>
+            <th>המחיר הקודם</th>
+            <th>המחיר הנוכחי</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cheaper_items %}
+        <tr class="better-price">
+            <td>{{ item.name }}</td>
+            <td>{{ item.old_price }} ₪</td>
+            <td>{{ item.new_price }} ₪</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>לא נמצאו מוצרים זולים יותר.</p>
+{% endif %}
 
     <br>
     <a href="{{ url_for('dashboard') }}">חזור ללוח הבקרה</a>

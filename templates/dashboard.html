@@ -9,14 +9,13 @@
 <body>
     <div class="container">
         <h1 class="mt-5 text-gold">לוח בקרה</h1>
-        <a href="{{ url_for('add_purchase') }}" class="btn btn-gold">הוסף קניה</a>
+        <a href="{{ url_for('save_data') }}" type="submit" class="btn btn-black" method="get">גיבוי נתונים</a>
         <a href="{{ url_for('purchases_by_date') }}" class="btn btn-warning">צפייה בקניות לפי תאריכים</a>
         <a href="{{ url_for('store') }}" class="btn btn-primary mt-3">ייעול קניות בחנות</a>
         <a href="{{ url_for('logout') }}" class="btn btn-secondary">התנתקות</a>
 
         <!-- 🔹 כפתורים לגרפים -->
         <div class="mt-4">
-            <h4 class="text-gold">ניתוח גרפי</h4>
             <a href="{{ url_for('graph1') }}" class="btn btn-info" target="_blank">גרף הוצאות שבועיות</a>
             <a href="{{ url_for('graph2') }}" class="btn btn-success" target="_blank">גרף הוצאות לפי קטגוריות</a>
         </div>
@@ -24,7 +23,7 @@
         <h2 class="mt-5 text-gold">קניות השבוע האחרון</h2>
         {% set data = purchases if purchases is defined else purchases_last_week %}
         {% if data %}
-        <table class="table table-striped">
+        <table class="product-table">
             <thead class="bg-gold text-white">
                 <tr>
                     <th>שם המוצר</th>
@@ -51,9 +50,7 @@
 {% endif %}
 
 
-        <form action="{{ url_for('save_data') }}" method="get">
-            <button type="submit" class="btn btn-black">גיבוי נתונים</button>
-        </form>
+        <a href="{{ url_for('add_purchase') }}" class="btn btn-gold">הוסף קניה</a>
     </div>
 </body>
 </html>

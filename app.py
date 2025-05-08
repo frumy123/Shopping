@@ -6,10 +6,9 @@ from datetime import datetime, timedelta
 import pandas as pd
 import os
 import numpy as np
-from io import BytesIO
 import base64
-import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -83,6 +82,7 @@ def add_purchase():
         return redirect(url_for('dashboard'))
     return render_template('add_purchase.html')
 
+
 @app.route('/purchases_by_date', methods=['GET', 'POST'])
 def purchases_by_date():
     if 'email' not in session:
@@ -92,29 +92,19 @@ def purchases_by_date():
         start_date = datetime.strptime(request.form['start_date'], '%Y-%m-%d')
         end_date = datetime.strptime(request.form['end_date'], '%Y-%m-%d')
         purchases = get_purchases_by_date(email, start_date, end_date)
-        print("📅 Start Date:", start_date)
-        print("📅 End Date:", end_date)
-        print("📦 Found Purchases:", purchases)
         return render_template('dashboard.html', purchases=purchases)
     return render_template('purchases_by_date.html')
 
 @app.route('/saveData', methods=['GET'])
 def save_data():
-    # הנתונים בדוגמה (תוכל לשנות אותם לפי הצורך)
     email = session['email']
     purchases = get_purchases_by_date(email, datetime.today() - timedelta(days=30), datetime.today())  # לדוגמה קניות בחודש האחרון
 
-    # יצירת DataFrame מתוך הנתונים
     df = pd.DataFrame(purchases, columns=["שם מוצר", "קטגוריה", "כמות", "מחיר", "תאריך"])
-
-    # שמירת ה-DataFrame כקובץ CSV
     file_path = f"backup/{email}_purchases_backup.csv"
     os.makedirs("backup", exist_ok=True)
     df.to_csv(file_path, index=False, encoding="utf-8-sig")
-
-    # החזרת הקובץ למשתמש להורדה
     return send_file(file_path, as_attachment=True, download_name=f"{email}_purchases_backup.csv")
-
 
 @app.route('/graph1')
 def graph1():
@@ -168,26 +158,27 @@ def graphs():
     return render_template('graphs.html')
 
 #חנות להשוואת מחירים
-@app.route('/store')
+@app.route('/shop')
 def store():
-    return render_template('store.html')
+    return render_template('shop.html')
 
-@app.route('/optimize_shopping', methods=['POST'])
+@app.route('/optimize_result', methods=['POST'])
 def optimize_shopping():
     if 'email' not in session:
         return redirect(url_for('login'))
 
     # קריאת דף החנות
-    with open('templates/store.html', 'r', encoding='utf-8') as f:
+    with open('templates/shop.html', 'r', encoding='utf-8') as f:
         store_html = f.read()
 
     soup = BeautifulSoup(store_html, 'html.parser')
-    products = soup.find_all('div', class_='product')
+    products = soup.find_all('tr', class_='product-row')
 
     store_items = []
     for product in products:
-        name = product.find('span', class_='name').text.strip()
-        price = float(product.find('span', class_='price').text.strip())
+        name = product.find('td', class_='name').text.strip()
+        price_text = product.find('td', class_='price').text.strip().replace('₪', '').strip()
+        price = float(price_text)
         store_items.append({'name': name, 'price': price})
 
     # קניות אחרונות של המשתמש
@@ -197,17 +188,20 @@ def optimize_shopping():
     cheaper_items = []
     for purchase in user_purchases:
         product_name = purchase[0]
-        user_price = float(purchase[3])
+        quantity = int(purchase[2])  # נניח שעמודה 2 היא הכמות
+        user_total_price = float(purchase[3])  # עמודה 3 = מחיר כולל
+        user_unit_price = user_total_price / quantity if quantity else user_total_price
 
         for store_product in store_items:
-            if store_product['name'] == product_name and store_product['price'] < user_price:
+            if store_product['name'] == product_name and store_product['price'] < user_unit_price:
                 cheaper_items.append({
                     'name': product_name,
-                    'old_price': user_price,
-                    'new_price': store_product['price']
+                    'old_price': round(user_unit_price, 2),
+                    'new_price': round(store_product['price'], 2)
                 })
 
     return render_template('optimize_result.html', cheaper_items=cheaper_items)
+
 
 @app.route('/logout')
 def logout():

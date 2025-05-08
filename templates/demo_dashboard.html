@@ -18,7 +18,6 @@
         </div>
 
         <div class="mt-4">
-            <h4 class="text-gold">ניתוח גרפי</h4>
             <a href="{{ url_for('register') }}" class="btn btn-info">גרף הוצאות שבועיות</a>
             <a href="{{ url_for('register') }}" class="btn btn-success">גרף הוצאות לפי קטגוריות</a>
         </div>
@@ -26,7 +25,7 @@
         <h2 class="mt-5 text-gold">קניות השבוע האחרון (דמו)</h2>
 
         {% if purchases %}
-        <table class="table table-striped mt-3">
+        <table class="product-table">
             <thead class="bg-gold text-white">
                 <tr>
                     <th>שם המוצר</th>

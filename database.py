@@ -1,19 +1,19 @@
 import sqlite3
 
+# יצירת חיבור למסד הנתונים
+connection = sqlite3.connect('database.db')
+cursor = connection.cursor()
 
-def create_users_table():
-    conn = sqlite3.connect("users.db")  # יצירת מסד הנתונים
-    cursor = conn.cursor()
+# יצירת טבלת users
+cursor.execute('''
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL
+)
+''')
 
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            email TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL
-        )
-    """)
+# שמירת השינויים וסגירת החיבור
+connection.commit()
+connection.close()
 
-    conn.commit()
-    conn.close()
-
-create_users_table()
