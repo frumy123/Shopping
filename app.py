@@ -1,6 +1,6 @@
 import re
 from flask import Flask, render_template, request, redirect, url_for, session, send_file
-from user_management import add_user, get_user_by_email
+from user_management import add_user, get_user_by_email, init_db
 from purchase_management import add_purchase_to_csv, get_purchases_by_date, plot_category_expenses, plot_weekly_expenses
 from datetime import datetime, timedelta
 import pandas as pd
@@ -209,4 +209,5 @@ def logout():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
+    init_db()
     app.run(debug=True)
